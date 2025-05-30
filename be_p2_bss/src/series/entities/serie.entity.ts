@@ -33,6 +33,9 @@ export class Serie {
   @Column('date', { name: 'fecha_estreno' })
   fechaEstreno: Date;
 
+  @Column('varchar', { length: 30 })
+  tipoClasificacion: string;
+
   @CreateDateColumn({ name: 'fecha_creacion' })
   fechaCreacion: Date;
 

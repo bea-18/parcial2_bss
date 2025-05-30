@@ -1,14 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsDefined, IsInt, IsNotEmpty, IsString, MaxLength } from 'class-validator';
-import { Pais } from 'src/paises/entities/pais.entity';
+//import { Type } from 'class-transformer';
+import {  IsDateString, IsDefined, IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
+//import { Pais } from 'src/paises/entities/pais.entity';
 
 export class CreateSerieDto {
-  @ApiProperty()
-  @Type(() => Number)
-  @IsDefined({ message: 'El campo idPais debe estar definido' })
-  @IsInt({ message: 'El campo idPais debe ser de tipo numérico' })
-  readonly idPais: Pais['id'];
+  // @ApiProperty()
+  // @Type(() => Number)
+  // @IsDefined({ message: 'El campo idPais debe estar definido' })
+  // @IsInt({ message: 'El campo idPais debe ser de tipo numérico' })
+  // readonly idPais: Pais['id'];
 
   @ApiProperty()
   @IsNotEmpty({ message: 'El campo titulo es obligatorio' })
@@ -29,10 +29,18 @@ export class CreateSerieDto {
   readonly director: string;
 
   @ApiProperty()
-  @IsNotEmpty({ message: 'El campo temporadas es obligatorio' })
+  @IsNotEmpty({ message: 'El campo teporadas es obligatorio' })
+  @IsNumber({}, { message: 'El campo temporadas debe ser tipo entero' })
   readonly temporadas: number;
 
   @ApiProperty()
-  @IsNotEmpty({ message: 'El campo fechaEstreno es obligatorio' })
+  @IsDefined({ message: 'El campo fechaEstreno debe estar definido' })
+  @IsDateString({}, { message: 'El campo fechaEstreno debe ser de tipo fecha'},)
   readonly fechaEstreno: Date;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: 'El campo tipoClasificacion es obligatorio' })
+  @IsString({ message: 'El campo tipoClasificacion debe ser de tipo cadena' })
+  @MaxLength(30, { message: 'El campo tipoClasificacion no debe ser mayor a 30 caracteres' })
+  readonly tipoClasificacion: string;
 }

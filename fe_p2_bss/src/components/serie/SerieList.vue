@@ -42,21 +42,26 @@ defineExpose({ obtenerLista })
             <thead>
                 <tr>
                     <th>Nro.</th>
+                    <th>Pais</th>
                     <th>Titulo</th>
                     <th>Sinopsis</th>
                     <th>Director</th>
                     <th>Temporadas</th>
                     <th>Fecha de Estreno</th>
+                    <th>Tipo Clasificación</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(serie, index) in series" :key="serie.id">
                     <td>{{ index + 1 }}</td>
+                    <td>{{ serie.pais?.descripcion }}</td>
                     <td>{{ serie.titulo }}</td>
                     <td>{{ serie.sinopsis }}</td>
                     <td>{{ serie.director }}</td>
                     <td>{{ serie.temporadas }}</td>
                     <td>{{ serie.fechaEstreno }}</td>
+                    <td>{{ serie.tipoClasificacion }}</td>
                     <td>
                         <button @click="emitirEdicion(serie)">Editar</button>
                         <button @click="mostrarEliminarConfirm(serie)">eliminar</button>

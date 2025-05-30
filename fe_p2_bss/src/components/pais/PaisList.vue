@@ -43,12 +43,12 @@ defineExpose({ obtenerLista })
                 <tr>
                     <th>Nro.</th>
                     <th>Descripcion</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(pais, index) in paises" :key="pais.id">
                     <td>{{ index + 1 }}</td>
-                    <!-- <td>{{ pais.serie.titulo }}</td> -->
                     <td>{{ pais.descripcion }}</td>
                     <td>
                         <button @click="emitirEdicion(pais)">Editar</button>

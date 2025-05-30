@@ -12,48 +12,48 @@ export class PaisesService {
   async create(createPaisDto: CreatePaisDto): Promise<Pais> {
     const existe = await this.paisRepository.findOneBy({
       descripcion: createPaisDto.descripcion.trim(),
-      idSerie: createPaisDto.idSerie,
+      //idSerie: createPaisDto.idSerie,
     });
 
     if (existe) throw new ConflictException('El pais ya existe');
 
     const pais = new Pais();
-    pais.idSerie = createPaisDto.idSerie;
+    //pais.idSerie = createPaisDto.idSerie;
     pais.descripcion = createPaisDto.descripcion.trim();
     return this.paisRepository.save(pais);
   }
 
-  async findAll(): Promise<Pais[]> {
-    return this.paisRepository.find({
-      relations: { series: true },
-      select: {
-        id: true,
-        descripcion: true,
-        series: { id: true, titulo: true },
-      },
-    });
-  }
+  // async findAll(): Promise<Pais[]> {
+  //   return this.paisRepository.find({
+  //     relations: { series: true },
+  //     select: {
+  //       id: true,
+  //       descripcion: true,
+  //       series: { id: true, titulo: true },
+  //     },
+  //   });
+  // }
 
-  async findOne(id: number): Promise<Pais> {
-    const pais = await this.paisRepository.findOne({
-      where: { id },
-      relations: { series: true },
-    });
+  // async findOne(id: number): Promise<Pais> {
+  //   const pais = await this.paisRepository.findOne({
+  //     where: { id },
+  //     relations: { series: true },
+  //   });
 
-    if (!pais) throw new NotFoundException('El pais no existe');
+  //   if (!pais) throw new NotFoundException('El pais no existe');
 
-    return pais;
-  }
+  //   return pais;
+  // }
 
-  // async findAll() {
-  //     return this.paisRepository.find({ order: { descripcion: 'ASC' } });
-  //   }
+  async findAll() {
+      return this.paisRepository.find({ order: { descripcion: 'ASC' } });
+    }
 
-  //   async findOne(id: number): Promise<Pais> {
-  //     const pais = await this.paisRepository.findOneBy({ id });
-  //     if (!pais) throw new NotFoundException('El pais no existe');
-  //     return pais;
-  //   }
+    async findOne(id: number): Promise<Pais> {
+      const pais = await this.paisRepository.findOneBy({ id });
+      if (!pais) throw new NotFoundException('El pais no existe');
+      return pais;
+    }
   
   async update(id: number, updatePaisDto: UpdatePaisDto): Promise<Pais> {
     const pais = await this.findOne(id);
